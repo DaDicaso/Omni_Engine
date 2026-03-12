@@ -1,1 +1,1 @@
-/usr/bin/g++ -g -O0 -Wall -Wextra -Wpedantic -Wl,--dependency-file=CMakeFiles/physics_engine.dir/link.d CMakeFiles/physics_engine.dir/src/main.cpp.o -o physics_engine
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/physics_engine.dir/link.d CMakeFiles/physics_engine.dir/src/main.cpp.o -o physics_engine
