@@ -1,0 +1,1 @@
+/usr/bin/c++ -Wl,--dependency-file=CMakeFiles/particle_sandbox.dir/link.d CMakeFiles/particle_sandbox.dir/demos/particle_sandbox/particle_sandbox.cpp.o CMakeFiles/particle_sandbox.dir/src/physics/particle.cpp.o -o particle_sandbox  external/glfw/src/libglfw3.a libglad.a -lGL /usr/lib/x86_64-linux-gnu/librt.a -lm -ldl

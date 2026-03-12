@@ -1,8 +1,0 @@
-[
-{
-  "directory": "/home/dicaso/Desktop/TheOne/GamePhysicsEngine/build",
-  "command": "/usr/bin/g++  -I/home/dicaso/Desktop/TheOne/GamePhysicsEngine/include -g -O0 -Wall -Wextra -Wpedantic -std=gnu++17 -o CMakeFiles/physics_engine.dir/src/main.cpp.o -c /home/dicaso/Desktop/TheOne/GamePhysicsEngine/src/main.cpp",
-  "file": "/home/dicaso/Desktop/TheOne/GamePhysicsEngine/src/main.cpp",
-  "output": "CMakeFiles/physics_engine.dir/src/main.cpp.o"
-}
-]

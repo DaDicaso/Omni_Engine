@@ -13,17 +13,3 @@ struct AmmoRound{
   ShotType type;
   float startTime;
 };
-
-void setShot(AmmoRound* shot, ShotType currentShotType){
-  using namespace engine;
-
-  switch (currentShotType)
-  {
-  case PISTOL:
-    shot->particle.setMass(2.0f);
-    break;
-  
-  default:
-    break;
-  }
-}
