@@ -36,7 +36,7 @@ namespace engine{
           (*this) *= ((real)1)/l;
         }
       }
-
+      // Reset the vector.
       void clear(){
         x = 0;
         y = 0;
