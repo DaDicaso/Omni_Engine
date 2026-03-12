@@ -37,6 +37,12 @@ namespace engine{
         }
       }
 
+      void clear(){
+        x = 0;
+        y = 0;
+        z = 0;
+      }
+
       // Operator Overloads
       
       Vector3& operator+=(const Vector3& v){
@@ -109,7 +115,7 @@ namespace engine{
         *this = vectorProduct(vector);
       }
 
-      Vector3 operator%=(const Vector3 &vector) const{
+      Vector3 operator%(const Vector3 &vector) const{
         return Vector3(y*vector.z - z*vector.y,
                       z*vector.x - x*vector.z,
                       x*vector.y - y*vector.x);

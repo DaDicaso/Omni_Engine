@@ -19,4 +19,15 @@ void Particle::integrate(real duration){
 
   //Impose Drag
   velocity *= real_pow(damping, duration);
+
+  // Clear the forces.
+  clearAccumulator();
+}
+
+void Particle::clearAccumulator(){
+  forceAccum.clear();
+}
+
+void Particle::addForce(const Vector3 &force){
+  forceAccum += force;
 }
