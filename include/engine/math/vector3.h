@@ -22,6 +22,10 @@ namespace engine{
         z = -z;
       }
 
+      Vector3 operator -() const{
+        return Vector3(-x, -y, -z);
+      }
+
       real magnitude() const{
         return real_sqrt(x*x + y*y + z*z);
       }

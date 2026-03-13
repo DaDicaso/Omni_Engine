@@ -67,6 +67,10 @@ Vector3 Particle::getVelocity(){
   return velocity;
 }
 
+void Particle::getVelocity(Vector3 *velocity) const{
+  *velocity = this->velocity;
+}
+
 Vector3 Particle::getAcceleration(){
   return acceleration;
 }
@@ -77,4 +81,8 @@ real Particle::getMass(){
 
 real Particle::getDamping(){
   return damping;
+}
+
+bool Particle::hasFiniteMass() const{
+  return inverseMass > 0.0f;
 }

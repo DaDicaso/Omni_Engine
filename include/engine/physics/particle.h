@@ -45,9 +45,16 @@ namespace engine {
   // All getter Methods
   Vector3 getPosition();
   Vector3 getVelocity();
+
   Vector3 getAcceleration();
   real getMass();
   real getDamping();
+
+  // Write the velocity to the parameter variable.
+  void getVelocity(Vector3 *velocity) const;
+  
+  // Check for finite mass
+  bool hasFiniteMass() const;
 
   };
 }  // namespace engine
