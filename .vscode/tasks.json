@@ -5,11 +5,15 @@
       "label": "C/C++: g++ build active file",
       "command": "/usr/bin/g++",
       "args": [
-        "-fdiagnostics-color=always",
-        "-g",
+        "-std=c++17",
+        "-I${workspaceFolder}/include",
+        "-I${workspaceFolder}/external/glad/include",
+        "-I${workspaceFolder}/external/glfw/include",
         "${file}",
         "-o",
-        "${fileDirname}/${fileBasenameNoExtension}"
+        "${fileDirname}/${fileBasenameNoExtension}",
+        "-fdiagnostics-color=always",
+        "-g"
       ],
       "options": {
         "cwd": "${fileDirname}"
