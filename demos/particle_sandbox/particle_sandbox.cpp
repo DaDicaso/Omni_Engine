@@ -1,4 +1,5 @@
 #include<engine/physics/particle.h>
+#include<engine/physics/pfgen.h>
 #include<glad/glad.h>
 #include<GLFW/glfw3.h>
 #include<iostream>
@@ -36,24 +37,25 @@ int main(){
 
   //float dt = 0.014f; // this is a timestamp since physics engine advances in small time slices.
   #pragma region "projectile motion Particle"
-  std::random_device rd;
-  std::mt19937 gen(rd());
-  std::uniform_real_distribution<> distr(3, 7);
-  std::uniform_real_distribution<> xdistr(-4, 4);
+  // std::random_device rd;
+  // std::mt19937 gen(rd());
+  // std::uniform_real_distribution<> distr(3, 7);
+  // std::uniform_real_distribution<> xdistr(-4, 4);
 
-  std::vector<engine::Particle> particles;
-  particles.resize(1000000);
+  // std::vector<engine::Particle> particles;
+  // particles.resize(1000000);
 
-  for(int i = 0; i < particles.size(); i++){
-    particles[i].setPosition(xdistr(gen), distr(gen), 0);
-    particles[i].setVelocity(distr(gen), distr(gen), 0);
-    particles[i].setAcceleration(0, -9.8f, 0);
-    particles[i].setMass(1.0f);
-    particles[i].setDamping(0.99f);
-  }
+  // for(int i = 0; i < particles.size(); i++){
+  //   particles[i].setPosition(xdistr(gen), distr(gen), 0);
+  //   particles[i].setVelocity(distr(gen), distr(gen), 0);
+  //   particles[i].setAcceleration(0, -9.8f, 0);
+  //   particles[i].setMass(1.0f);
+  //   particles[i].setDamping(0.99f);
+  // }
 
   #pragma endregion
   
+  #pragma region "Three particle system"
   // engine::Particle p1;
   // engine::Particle p2;
   // engine::Particle p3;
@@ -80,6 +82,29 @@ int main(){
   //     particles[i].setMass(1.0f);
   //     particles[i].setDamping(0.99f);
   // }
+#pragma endregion
+
+
+#pragma region "Spring Force Demo"
+  engine::Particle p1, p2;
+  engine::ParticleForceRegistry registry;
+  p1.setPosition(0, 5, 0);
+  p1.setMass(1.0f);
+  p1.setDamping(0.99f);
+  p1.setAcceleration(10, 0, 0);
+
+  p2.setPosition(0, 0, 0);
+  p2.setMass(1.0f);
+  p2.setDamping(0.99f);
+  p2.setAcceleration(-10,0,0);
+
+  engine::ParticleSpring spring1(&p2, 10.0f, 3.0f);
+  engine::ParticleSpring spring2(&p1, 10.0f, 3.0f);
+
+  registry.add(&p1, &spring1);
+  registry.add(&p2, &spring2);
+  #pragma endregion
+  
 
   double lastTime = glfwGetTime();
   while(!glfwWindowShouldClose(window)){
@@ -91,9 +116,36 @@ int main(){
     double dt = currentTime - lastTime;
     lastTime = currentTime;
 
-    float restLength = 1.5f;
-    float k = 10.0f;
+    registry.updateForces(dt);
 
+    glPointSize(10.0f);
+
+    p1.integrate(dt);
+    p2.integrate(dt);
+
+    auto pos1 = p1.getPosition();
+    auto pos2 = p2.getPosition();
+
+    glBegin(GL_POINTS);
+
+    // p1-> RedColor
+    glColor3f(1.0f, 0.0f, 0.0f);
+    glVertex3f(pos1.x, pos1.y, pos1.z);
+
+    //p2-> green color
+    glColor3f(0.0f, 1.0f, 0.0f);
+    glVertex3f(pos2.x, pos2.y, pos2.z);
+
+    glEnd();
+
+    glColor3f(1.0f, 1.0f, 1.0f);
+    glBegin(GL_LINES);
+    glVertex3f(pos1.x, pos1.y, pos1.z);
+    glVertex3d(pos2.x, pos2.y, pos2.z);
+    glEnd();
+
+
+    #pragma region "Something related to particle velocity"
     // for(int i = 0; i < particles.size() - 1; i++){
     //   auto pos1 = particles[i].getPosition();
     //   auto pos2 = particles[i+1].getPosition();
@@ -125,6 +177,7 @@ int main(){
     // }
 
     // glEnd();
+    #pragma endregion
 
     #pragma region "Springs in a triangle"
     // engine::Vector3 pos1 = p1.getPosition();
@@ -184,30 +237,28 @@ int main(){
     #pragma endregion
 
     #pragma region "projectile particle sim"
-    //////////////////////////////////////////////////////////
-    //// This loop is for multiple particle projectile simulation
-    //////////////////////////////////////////////////////////
-    glBegin(GL_POINTS);
-    glPointSize(10);
-    for(int i = 0; i < particles.size(); i++){
-      particles[i].integrate(dt);
-      auto pos = particles[i].getPosition();
-      glVertex3f(pos.x, pos.y, pos.z);
+    /*Summary
+      This loop is for multiple particle projectile simulation
+    Summary*/
+    // glBegin(GL_POINTS);
+    // glPointSize(10);
+    // for(int i = 0; i < particles.size(); i++){
+    //   particles[i].integrate(dt);
+    //   auto pos = particles[i].getPosition();
+    //   glVertex3f(pos.x, pos.y, pos.z);
     
 
-      if(pos.y < -30){
-        particles[i].setPosition(0, distr(gen), 0);
-        particles[i].setVelocity(
-          particles[i].getVelocity().x + distr(gen),
-          particles[i].getVelocity().y + distr(gen),
-          0
-        );
-      }
-    }
-    glEnd();
-    //////////////////////////////////////////////////////////
-    //// This loop is for multiple particle projectile simulation
-    //////////////////////////////////////////////////////////
+    //   if(pos.y < -30){
+    //     particles[i].setPosition(0, distr(gen), 0);
+    //     particles[i].setVelocity(
+    //       particles[i].getVelocity().x + distr(gen),
+    //       particles[i].getVelocity().y + distr(gen),
+    //       0
+    //     );
+    //   }
+    // }
+    //glEnd();
+    
     #pragma endregion
     
     glfwSwapBuffers(window);

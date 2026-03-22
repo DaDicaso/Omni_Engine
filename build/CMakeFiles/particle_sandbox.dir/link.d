@@ -4,6 +4,7 @@ particle_sandbox: \
   /usr/lib/gcc/x86_64-linux-gnu/14/crtbeginS.o \
   CMakeFiles/particle_sandbox.dir/demos/particle_sandbox/particle_sandbox.cpp.o \
   CMakeFiles/particle_sandbox.dir/src/physics/particle.cpp.o \
+  CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.o \
   external/glfw/src/libglfw3.a \
   libglad.a \
   /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libGL.so \
@@ -46,6 +47,8 @@ particle_sandbox: \
 CMakeFiles/particle_sandbox.dir/demos/particle_sandbox/particle_sandbox.cpp.o:
 
 CMakeFiles/particle_sandbox.dir/src/physics/particle.cpp.o:
+
+CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.o:
 
 external/glfw/src/libglfw3.a:
 

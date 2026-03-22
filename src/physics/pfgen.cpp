@@ -11,6 +11,23 @@ void ParticleForceRegistry::updateForces(real duration){
   }
   
 }
+void ParticleForceRegistry::add(Particle *particle, ParticleForceGenerator *fg){\
+  registrations.push_back({particle, fg});
+}
+
+// void ParticleForceRegistry::remove(Particle *particle, ParticleForceGenerator *fg){
+//   registrations.erase(
+//     std::remove_if(registrations.begin(), registrations.end(),
+//         [&](const ParticleForceRegistration& reg){
+//           return reg.particle == particle && reg.fg = fg;
+//         }),
+//         registrations.end();
+//   );
+// }
+
+void ParticleForceRegistry::clear(){
+  registrations.clear();
+}
 
 void ParticleGravity::updateForce(Particle *particle, real duration){
 
@@ -23,7 +40,7 @@ void ParticleGravity::updateForce(Particle *particle, real duration){
 
 void ParticleDrag::updateForce(Particle *particle, real duration){
   Vector3 force;
-  particle->getVelocity();
+  particle->getVelocity(&force);
 
   // Calculate drag from the force;
   real dragCoeff = force.magnitude();
@@ -33,6 +50,12 @@ void ParticleDrag::updateForce(Particle *particle, real duration){
   force.normalize();
   force *= -dragCoeff;
   particle->addForce(force);
+}
+
+ParticleSpring::ParticleSpring(Particle *other, real springConstant, real restLength){
+  this->other = other;
+  this->springConstant = springConstant;
+  this->restLength = restLength;
 }
 
 void ParticleSpring::updateForce(Particle *particle, real duration){
