@@ -158,25 +158,24 @@ namespace engine{
 
       virtual void updateForce(Particle *Particle, real duration);
   };
+  /*
+    A force generator that fakes a stiff spring force, and where one end is attached to a fixed point in space.
+  */
+  
+  class ParticleFakeSpring : public ParticleForceGenerator{
+  
+    //The location of the anchored end of the spring.
+    Vector3 *anchor;
+  
+    //Holds the spring constant
+    real springConstant;
+  
+    // Holds the damping of the oscillation of the spring.
+    real damping;
+  
+  public:
+      ParticleFakeSpring(Vector3 *anchor, real springConstant, real damping);
+  
+      virtual void updateForce(Particle *particle, real duration);
+  };
 }
-
-/*
-  A force generator that fakes a stiff spring force, and where one end is attached to a fixed point in space.
-*/
-
-class ParticleFakeSpring : public ParticleForceGenerator{
-
-  //The location of the anchored end of the spring.
-  Vector3 *anchor;
-
-  //Holds the spring constant
-  real springConstant;
-
-  // Holds the damping of the oscillation of the spring.
-  real damping;
-
-public:
-    ParticleFakeSpring(Vector3 *anchor, real springConstant, real damping);
-
-    virtual void updateForce(Particle *particle, real duration);
-};

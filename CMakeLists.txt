@@ -24,6 +24,7 @@ target_include_directories(physics_engine
 add_executable(particle_sandbox
     demos/particle_sandbox/particle_sandbox.cpp
     src/physics/particle.cpp
+    src/physics/pfgen.cpp
 )
 
 target_include_directories(particle_sandbox PUBLIC

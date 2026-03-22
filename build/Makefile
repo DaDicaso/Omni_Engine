@@ -335,6 +335,30 @@ src/physics/particle.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/physics/particle.cpp.s
 .PHONY : src/physics/particle.cpp.s
 
+src/physics/pfgen.o: src/physics/pfgen.cpp.o
+.PHONY : src/physics/pfgen.o
+
+# target to build an object file
+src/physics/pfgen.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.o
+.PHONY : src/physics/pfgen.cpp.o
+
+src/physics/pfgen.i: src/physics/pfgen.cpp.i
+.PHONY : src/physics/pfgen.i
+
+# target to preprocess a source file
+src/physics/pfgen.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.i
+.PHONY : src/physics/pfgen.cpp.i
+
+src/physics/pfgen.s: src/physics/pfgen.cpp.s
+.PHONY : src/physics/pfgen.s
+
+# target to generate assembly for a file
+src/physics/pfgen.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.s
+.PHONY : src/physics/pfgen.cpp.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -365,6 +389,9 @@ help:
 	@echo "... src/physics/particle.o"
 	@echo "... src/physics/particle.i"
 	@echo "... src/physics/particle.s"
+	@echo "... src/physics/pfgen.o"
+	@echo "... src/physics/pfgen.i"
+	@echo "... src/physics/pfgen.s"
 .PHONY : help
 
 
