@@ -51,10 +51,11 @@ namespace engine {
   real getDamping();
 
   // Write the velocity to the parameter variable.
+  void getPosition(Vector3 *position) const;
   void getVelocity(Vector3 *velocity) const;
   
   // Check for finite mass
   bool hasFiniteMass() const;
 
   };
-}  // namespace engine
+}
