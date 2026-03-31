@@ -5,6 +5,7 @@
 #include<iostream>
 #include<vector>
 #include<random>
+#include<memory>
 
 void processInput(GLFWwindow* window);
 
@@ -85,26 +86,57 @@ int main(){
 #pragma endregion
 
 
-#pragma region "Spring Force Demo"
-  engine::Particle p1, p2;
-  engine::ParticleForceRegistry registry;
-  p1.setPosition(0, 5, 0);
-  p1.setMass(1.0f);
-  p1.setDamping(0.99f);
-  p1.setAcceleration(10, 0, 0);
 
-  p2.setPosition(0, 0, 0);
-  p2.setMass(1.0f);
-  p2.setDamping(0.99f);
-  p2.setAcceleration(-10,0,0);
+#pragma region "Spring Force Demo with two particle system"
+  // engine::Particle p1, p2;
+  // engine::ParticleForceRegistry registry;
+  // p1.setPosition(0, 5, 0);
+  // p1.setMass(1.0f);
+  // p1.setDamping(0.99f);
+  // p1.setAcceleration(10, 0, 0);
 
-  engine::ParticleSpring spring1(&p2, 10.0f, 3.0f);
-  engine::ParticleSpring spring2(&p1, 10.0f, 3.0f);
+  // p2.setPosition(0, 0, 0);
+  // p2.setMass(1.0f);
+  // p2.setDamping(0.99f);
+  // p2.setAcceleration(-10,0,0);
 
-  registry.add(&p1, &spring1);
-  registry.add(&p2, &spring2);
+  // engine::ParticleSpring spring1(&p2, 10.0f, 3.0f);
+  // engine::ParticleSpring spring2(&p1, 10.0f, 3.0f);
+
+  // registry.add(&p1, &spring1);
+  // registry.add(&p2, &spring2);
   #pragma endregion
   
+#pragma region "Rope sim using springs"
+
+  engine::ParticleForceRegistry registry;
+  std::vector<engine::Particle> rope;
+  int numParticles = 15;
+  rope.resize(numParticles);
+  float spacing = 0.5f;
+
+  // Instantiate Particles of the ropes
+  for(int i =0; i<numParticles; i++){
+    rope[i].setPosition(0, 5 - i * spacing, 0);
+    rope[i].setVelocity(0, 0, 0);
+    rope[i].setMass(1.0f);
+    rope[i].setAcceleration(0, 0, 0);
+    rope[i].setDamping(0.99f);
+  }
+  rope[0].setMass(0);
+  
+  // Instantiate springs between particles
+  std::vector<std::unique_ptr<engine::ParticleSpring>> springs;
+
+  springs.reserve((numParticles -1) *2);
+  for(int i= 0; i< numParticles -1; i++){
+    springs.push_back(std::make_unique<engine::ParticleSpring>(&rope[i+1], 50.0f, spacing));
+    registry.add(&rope[i], springs.back().get());
+
+    springs.push_back(std::make_unique<engine::ParticleSpring>(&rope[i], 50.0f, spacing));
+    registry.add(&rope[i+1], springs.back().get());
+    std::cout << "Connecting " << i << " <-> " << i+1 << std::endl;
+  }
 
   double lastTime = glfwGetTime();
   while(!glfwWindowShouldClose(window)){
@@ -116,34 +148,69 @@ int main(){
     double dt = currentTime - lastTime;
     lastTime = currentTime;
 
+    #pragma region "Rope Sim using springs"
+
     registry.updateForces(dt);
-
-    glPointSize(10.0f);
-
-    p1.integrate(dt);
-    p2.integrate(dt);
-
-    auto pos1 = p1.getPosition();
-    auto pos2 = p2.getPosition();
-
+    
+    for(auto &p : rope){
+      p.integrate(dt);
+    }
+    glPointSize(8);
     glBegin(GL_POINTS);
+    for(int i =0; i < numParticles; i++){
+      if(i==0) glColor3f(1, 0, 0);
+      else glColor3f(0, 1, 0);
 
-    // p1-> RedColor
-    glColor3f(1.0f, 0.0f, 0.0f);
-    glVertex3f(pos1.x, pos1.y, pos1.z);
+      auto pos = rope[i].getPosition();
+      glVertex3f(pos.x, pos.y, pos.z);
 
-    //p2-> green color
-    glColor3f(0.0f, 1.0f, 0.0f);
-    glVertex3f(pos2.x, pos2.y, pos2.z);
-
+    }
     glEnd();
 
-    glColor3f(1.0f, 1.0f, 1.0f);
+    glColor3f(1,1,1);
     glBegin(GL_LINES);
-    glVertex3f(pos1.x, pos1.y, pos1.z);
-    glVertex3d(pos2.x, pos2.y, pos2.z);
+    
+    for(int i = 0; i < numParticles -1; i++){
+      auto p1 = rope[i].getPosition();
+      auto p2 = rope[i+1].getPosition();
+
+      glVertex3d(p1.x, p1.y, p1.z);
+      glVertex3f(p1.x, p2.y, p2.z);
+    }
+
     glEnd();
 
+    #pragma endregion
+
+    
+    #pragma region "Two particle Spring demo"
+    //registry.updateForces(dt);
+    // glPointSize(10.0f);
+
+    // p1.integrate(dt);
+    // p2.integrate(dt);
+
+    // auto pos1 = p1.getPosition();
+    // auto pos2 = p2.getPosition();
+
+    // glBegin(GL_POINTS);
+
+    // // p1-> RedColor
+    // glColor3f(1.0f, 0.0f, 0.0f);
+    // glVertex3f(pos1.x, pos1.y, pos1.z);
+
+    // //p2-> green color
+    // glColor3f(0.0f, 1.0f, 0.0f);
+    // glVertex3f(pos2.x, pos2.y, pos2.z);
+
+    // glEnd();
+
+    // glColor3f(1.0f, 1.0f, 1.0f);
+    // glBegin(GL_LINES);
+    // glVertex3f(pos1.x, pos1.y, pos1.z);
+    // glVertex3d(pos2.x, pos2.y, pos2.z);
+    // glEnd();
+    #pragma endregion
 
     #pragma region "Something related to particle velocity"
     // for(int i = 0; i < particles.size() - 1; i++){
