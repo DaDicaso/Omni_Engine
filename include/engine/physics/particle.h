@@ -35,10 +35,14 @@ namespace engine {
 
   // All setter methods
   void setPosition(real x, real y, real z);
+  void setPosition(const Vector3& position);
   void setVelocity(real x, real y, real z);
+  void setVelocity(const Vector3& velocity);
   void setAcceleration(real x, real y, real z);
+  void setAcceleration(const Vector3& acceleration);
   
   void setMass(real mass);
+  void setInverseMass(real inverseMass);
   void setDamping(real damping);
   
 
@@ -48,6 +52,7 @@ namespace engine {
 
   Vector3 getAcceleration();
   real getMass();
+  real getInverseMass();
   real getDamping();
 
   // Write the velocity to the parameter variable.

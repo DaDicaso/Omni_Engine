@@ -23,8 +23,13 @@ target_include_directories(physics_engine
 
 add_executable(particle_sandbox
     demos/particle_sandbox/particle_sandbox.cpp
+
     src/physics/particle.cpp
     src/physics/pfgen.cpp
+    src/physics/pcontacts.cpp
+    src/constraints/plinks.cpp
+
+    src/scenes/rod_scene
 )
 
 target_include_directories(particle_sandbox PUBLIC

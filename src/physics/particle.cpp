@@ -5,17 +5,20 @@ using namespace engine;
 
 void Particle::integrate(real duration){
   assert(duration > 0.0);
+  
+  // We don't integrate things with zero mass.
+  if(inverseMass <= 0.0f) return;
 
   //Update linear position
-  position.addScalerVector(velocity, duration);
+  position.addScaledVector(velocity, duration);
 
   //Work out the acceleration from the force
   Vector3 resultingAcc = acceleration;
-  resultingAcc.addScalerVector(forceAccum, inverseMass);
+  resultingAcc.addScaledVector(forceAccum, inverseMass);
   
 
   //Update linear velocity from acceleration
-  velocity.addScalerVector(resultingAcc, duration);
+  velocity.addScaledVector(resultingAcc, duration);
 
   //Impose Drag
   velocity *= real_pow(damping, duration);
@@ -38,10 +41,18 @@ void Particle::setPosition(real x, real y, real z){
   position.z = z;
 }
 
+void Particle::setPosition(const Vector3& position){
+  this->position = position;
+}
+
 void Particle::setVelocity(real x, real y, real z){
   velocity.x = x;
   velocity.y = y;
   velocity.z = z;
+}
+
+void Particle::setVelocity(const Vector3& velocity){
+  this->velocity = velocity;
 }
 
 void Particle::setAcceleration(real x, real y, real z){
@@ -50,9 +61,20 @@ void Particle::setAcceleration(real x, real y, real z){
   acceleration.z = z;
 }
 
+void Particle::setAcceleration(const Vector3& acceleration){
+  this->acceleration = acceleration;
+}
+
 void Particle::setMass(real mass){
-  assert(mass != 0);
-  inverseMass = ((real)1.0)/mass;
+  if(mass == 0){
+    inverseMass = 0;
+  }else{
+    inverseMass = ((real)1.0)/mass;
+  }
+}
+
+void Particle::setInverseMass(real inverseMass){
+  this->inverseMass = inverseMass;
 }
 
 void Particle::setDamping(real d){
@@ -81,6 +103,10 @@ Vector3 Particle::getAcceleration(){
 
 real Particle::getMass(){
   return ((real)1.0/inverseMass);
+}
+
+real Particle::getInverseMass(){
+  return inverseMass;
 }
 
 real Particle::getDamping(){
