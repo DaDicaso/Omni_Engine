@@ -85,7 +85,7 @@ namespace engine{
       }
 
 
-      void addScalerVector(const Vector3& vector, real scale){
+      void addScaledVector(const Vector3& vector, real scale){
         x += vector.x * scale;
         y += vector.y * scale;
         z += vector.z * scale;
