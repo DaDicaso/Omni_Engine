@@ -1,4 +1,5 @@
 #pragma once
+#include<engine/physics/pcontacts.h>
 
 struct Scenes
 {
@@ -15,4 +16,6 @@ struct Scenes
 
   // Reset scene state
   virtual void reset() = 0;
+
+  virtual void generateContacts(engine::ParticleContact*, int&) {}
 };

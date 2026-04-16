@@ -1,3 +1,4 @@
+#pragma once
 #include<engine/physics/particle.h>
 #include<engine/physics/pcontacts.h>
 

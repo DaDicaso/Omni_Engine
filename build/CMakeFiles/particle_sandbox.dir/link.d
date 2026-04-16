@@ -8,6 +8,7 @@ particle_sandbox: \
   CMakeFiles/particle_sandbox.dir/src/physics/pcontacts.cpp.o \
   CMakeFiles/particle_sandbox.dir/src/constraints/plinks.cpp.o \
   CMakeFiles/particle_sandbox.dir/src/scenes/rod_scene.cpp.o \
+  CMakeFiles/particle_sandbox.dir/src/scenes/bridge_scene.cpp.o \
   external/glfw/src/libglfw3.a \
   libglad.a \
   /usr/lib/gcc/x86_64-linux-gnu/14/../../../x86_64-linux-gnu/libGL.so \
@@ -76,6 +77,8 @@ CMakeFiles/particle_sandbox.dir/src/physics/pcontacts.cpp.o:
 CMakeFiles/particle_sandbox.dir/src/constraints/plinks.cpp.o:
 
 CMakeFiles/particle_sandbox.dir/src/scenes/rod_scene.cpp.o:
+
+CMakeFiles/particle_sandbox.dir/src/scenes/bridge_scene.cpp.o:
 
 external/glfw/src/libglfw3.a:
 

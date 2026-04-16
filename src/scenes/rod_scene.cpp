@@ -37,8 +37,9 @@ void RodScene::init(){
 
 void RodScene::update(float dt){
 
+  if(!particles.empty()) 
+    particles[particles.size()/2].addForce(Vector3(0, -50.0f, 0));
   // Adds a constant force to the middle particle
-  // particles[particles.size()/2].addForce(Vector3(0, -50, 0));
 
   // Integrate
   for(auto& p : particles){
