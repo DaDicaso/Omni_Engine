@@ -407,6 +407,30 @@ src/physics/pfgen.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.s
 .PHONY : src/physics/pfgen.cpp.s
 
+src/scenes/bridge_scene.o: src/scenes/bridge_scene.cpp.o
+.PHONY : src/scenes/bridge_scene.o
+
+# target to build an object file
+src/scenes/bridge_scene.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/scenes/bridge_scene.cpp.o
+.PHONY : src/scenes/bridge_scene.cpp.o
+
+src/scenes/bridge_scene.i: src/scenes/bridge_scene.cpp.i
+.PHONY : src/scenes/bridge_scene.i
+
+# target to preprocess a source file
+src/scenes/bridge_scene.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/scenes/bridge_scene.cpp.i
+.PHONY : src/scenes/bridge_scene.cpp.i
+
+src/scenes/bridge_scene.s: src/scenes/bridge_scene.cpp.s
+.PHONY : src/scenes/bridge_scene.s
+
+# target to generate assembly for a file
+src/scenes/bridge_scene.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/particle_sandbox.dir/build.make CMakeFiles/particle_sandbox.dir/src/scenes/bridge_scene.cpp.s
+.PHONY : src/scenes/bridge_scene.cpp.s
+
 src/scenes/rod_scene.o: src/scenes/rod_scene.cpp.o
 .PHONY : src/scenes/rod_scene.o
 
@@ -470,6 +494,9 @@ help:
 	@echo "... src/physics/pfgen.o"
 	@echo "... src/physics/pfgen.i"
 	@echo "... src/physics/pfgen.s"
+	@echo "... src/scenes/bridge_scene.o"
+	@echo "... src/scenes/bridge_scene.i"
+	@echo "... src/scenes/bridge_scene.s"
 	@echo "... src/scenes/rod_scene.o"
 	@echo "... src/scenes/rod_scene.i"
 	@echo "... src/scenes/rod_scene.s"

@@ -10,6 +10,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/particle_sandbox.dir/src/physics/pcontacts.cpp.o.d"
   "CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.o"
   "CMakeFiles/particle_sandbox.dir/src/physics/pfgen.cpp.o.d"
+  "CMakeFiles/particle_sandbox.dir/src/scenes/bridge_scene.cpp.o"
+  "CMakeFiles/particle_sandbox.dir/src/scenes/bridge_scene.cpp.o.d"
   "CMakeFiles/particle_sandbox.dir/src/scenes/rod_scene.cpp.o"
   "CMakeFiles/particle_sandbox.dir/src/scenes/rod_scene.cpp.o.d"
   "particle_sandbox"

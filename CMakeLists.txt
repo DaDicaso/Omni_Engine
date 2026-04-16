@@ -30,6 +30,7 @@ add_executable(particle_sandbox
     src/constraints/plinks.cpp
 
     src/scenes/rod_scene
+    src/scenes/bridge_scene
 )
 
 target_include_directories(particle_sandbox PUBLIC
