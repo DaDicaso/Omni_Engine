@@ -31,6 +31,7 @@ add_executable(particle_sandbox
 
     src/scenes/rod_scene
     src/scenes/bridge_scene
+    src/scenes/physics_lab_scene
 )
 
 target_include_directories(particle_sandbox PUBLIC

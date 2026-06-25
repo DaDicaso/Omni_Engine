@@ -3,6 +3,7 @@
 
 #include "engine/scenes/rod_scene.h"
 #include "engine/scenes/bridge_scene.h"
+#include "engine/scenes/physics_lab_scene.h"
 #include "engine/physics/pcontacts.h"
 
 using namespace engine;
@@ -13,6 +14,7 @@ engine::ParticleContact contacts[MAX_CONTACTS];
 engine::ParticleContactResolver resolver(100);
 
 void processInput(GLFWwindow *window);
+Vector3 getMouseWorld(GLFWwindow* window);
 
 float getDeltaTime(){
   static float last = glfwGetTime();
@@ -43,11 +45,11 @@ int main(){
 
   glClearColor(0, 0, 0, 1);
 
-  RodScene rodScene;
+  PhysicsLabScene labScene;
   BridgeScene bridgeScene;
   
 
-  Scenes *currentScene = &rodScene;
+  Scenes *currentScene = &bridgeScene;
 
 
   //currentScene->init();
@@ -59,10 +61,23 @@ int main(){
 
   while(!glfwWindowShouldClose(window)){
     
+    float dt = getDeltaTime();
+    
     processInput(window);
 
+    if(glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_1) == GLFW_PRESS){
+      Vector3 mousePos = getMouseWorld(window);
+
+      Particle* p = bridgeScene.getClosestParticle(mousePos);
+
+      if(p && p->hasFiniteMass()){
+        Vector3 dir = mousePos - p->getPosition();
+        p->addForce(dir * 100.0f);
+      }
+    }
+
     if(glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS){
-      currentScene = &rodScene;
+      currentScene = &labScene;
       currentScene->init();
     }
     if(glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS){
@@ -70,7 +85,6 @@ int main(){
       currentScene->init();
     }
 
-    float dt = getDeltaTime();
     
     //rodScene.particles[rodScene.particles.size()/2].addForce(Vector3(0, -50, 0));
     
@@ -112,4 +126,23 @@ void processInput(GLFWwindow *window){
   if(glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS){
     glfwSetWindowShouldClose(window, true);
   }
+}
+
+Vector3 getMouseWorld(GLFWwindow* window){
+
+  double mx, my;
+  glfwGetCursorPos(window,  &mx, &my);
+
+  int width, height;
+  glfwGetWindowSize(window, &width, &height);
+
+  // Normalize the mouse input in [-1, 1]
+  float x = (mx / width) * 2.0f - 1.0f;
+  float y = 1.0f - (my / height) * 2.0f;
+
+  // Map to ortho
+  float worldX = x * 17.77f;
+  float worldY = y * 10.0f;
+
+  return Vector3(worldX, worldY, 0);
 }
