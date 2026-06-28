@@ -1,6 +1,6 @@
-#include<engine/physics/pfgen.h>
+#include<engine/physics/force_registry.h>
 
-using namespace engine;
+using namespace omni;
 
 void ParticleForceRegistry::updateForces(real duration){
 

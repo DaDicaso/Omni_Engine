@@ -2,7 +2,7 @@
 #include<cmath>
 
 
-namespace engine{
+namespace omni{
   using real = float;
 
   inline real real_sqrt(real x){

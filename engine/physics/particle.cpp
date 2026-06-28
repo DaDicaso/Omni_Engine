@@ -1,25 +1,39 @@
 #include<assert.h>
+#include<iostream>
 #include <engine/physics/particle.h>
 
-using namespace engine;
+using namespace omni;
+
+Particle::Particle()
+  : position(), velocity(), acceleration(),
+  forceAccum(), damping(0.99f), inverseMass(1.0f){
+
+  }
 
 void Particle::integrate(real duration){
   assert(duration > 0.0);
-  
+  // std::cout << "Imass: " << inverseMass << '\n';
+  // std::cout << "Velocity Y Before: " << velocity.y << '\n';
+  // std::cout << "Acceleration Y: " << acceleration.y << '\n';
+
+  // std:: cout << "Integrate particle @ " << this << std::endl;
+
   // We don't integrate things with zero mass.
   if(inverseMass <= 0.0f) return;
 
   //Update linear position
   position.addScaledVector(velocity, duration);
-
-  //Work out the acceleration from the force
-  Vector3 resultingAcc = acceleration;
-  resultingAcc.addScaledVector(forceAccum, inverseMass);
+  //std::cout << "Position Y: " << position.y << '\n';
   
-
+  //Work out the acceleration from the force
+  Vector3 resultingAcceleration = acceleration;
+  resultingAcceleration.addScaledVector(forceAccum, inverseMass);
+  
+  
   //Update linear velocity from acceleration
-  velocity.addScaledVector(resultingAcc, duration);
-
+  velocity.addScaledVector(resultingAcceleration, duration);
+  //std::cout << "Velocity Y After: " << velocity.y << '\n';
+  
   //Impose Drag
   velocity *= real_pow(damping, duration);
 
@@ -66,10 +80,10 @@ void Particle::setAcceleration(const Vector3& acceleration){
 }
 
 void Particle::setMass(real mass){
-  if(mass == 0){
+  if(mass <= 0.0f){
     inverseMass = 0;
   }else{
-    inverseMass = ((real)1.0)/mass;
+    inverseMass = 1.0f / mass;
   }
 }
 
@@ -81,15 +95,11 @@ void Particle::setDamping(real d){
   damping = d;
 }
 
-Vector3 Particle::getPosition(){
+const Vector3& Particle::getPosition() const{
   return position;
 }
 
-void Particle::getPosition(Vector3 *position) const{
-  *position = this->position;
-}
-
-Vector3 Particle::getVelocity(){
+const Vector3& Particle::getVelocity() const{
   return velocity;
 }
 
@@ -97,19 +107,23 @@ void Particle::getVelocity(Vector3 *velocity) const{
   *velocity = this->velocity;
 }
 
-Vector3 Particle::getAcceleration(){
+const Vector3& Particle::getAcceleration() const{
   return acceleration;
 }
 
-real Particle::getMass(){
-  return ((real)1.0/inverseMass);
+real Particle::getMass() const{
+  if(inverseMass == 0.0f){
+    return std::numeric_limits<real>::max(); 
+  }
+
+  return 1.0f / inverseMass;
 }
 
-real Particle::getInverseMass(){
+real Particle::getInverseMass() const{
   return inverseMass;
 }
 
-real Particle::getDamping(){
+real Particle::getDamping() const{
   return damping;
 }
 

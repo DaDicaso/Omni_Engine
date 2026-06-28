@@ -1,7 +1,7 @@
 #include<engine/physics/particle.h>
 #include<vector>
 
-namespace engine{
+namespace omni{
   class ParticleForceGenerator{
     public:
       /*

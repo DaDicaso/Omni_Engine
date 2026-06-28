@@ -2,10 +2,14 @@
 
 #include <engine/math/vector3.h>
 
-namespace engine {
+namespace omni {
   class Particle {
 
-  protected:
+
+  public:
+
+    Particle();
+  private:
     Vector3 position; // Keeps track of linear world position.
     Vector3 velocity; // Keeps track of linear velocity of the particle in world space.
     // Keeps track of acceleration of particle.
@@ -47,13 +51,13 @@ namespace engine {
   
 
   // All getter Methods
-  Vector3 getPosition();
-  Vector3 getVelocity();
+  const Vector3& getPosition() const;
+  const Vector3& getVelocity() const ;
+  const Vector3& getAcceleration() const;
 
-  Vector3 getAcceleration();
-  real getMass();
-  real getInverseMass();
-  real getDamping();
+  real getMass() const;
+  real getInverseMass() const;
+  real getDamping() const;
 
   // Write the velocity to the parameter variable.
   void getPosition(Vector3 *position) const;

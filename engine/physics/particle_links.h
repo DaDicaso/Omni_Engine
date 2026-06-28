@@ -1,12 +1,12 @@
 #pragma once
 #include<engine/physics/particle.h>
-#include<engine/physics/pcontacts.h>
+#include<engine/physics/particle_contacts.h>
 
 /*
 * Links connect two particles together, generating a contact if they violate the constraints of their link.
 * It is used as a base class for cables and rods, and could be used as a base class for springs with a limit to their extension.
 */
-namespace engine{
+namespace omni{
   class ParticleLink{
   public:
     // Holds the pair of particles that are connected by this link

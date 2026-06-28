@@ -1,4 +1,4 @@
-#include "physics_lab.h"
+#include "lab/physics_lab.h"
 
 #include<iostream>
 
@@ -7,46 +7,22 @@
 
 namespace omni{
 
-  PhysicsLab::PhysicsLab(){
+  PhysicsLab::PhysicsLab() : mRenderer(mWindow){
 
   }
 
   PhysicsLab::~PhysicsLab(){
-    shutdown();
+    
   }
 
   bool PhysicsLab::initialize(){
-    if(!glfwInit()){
-      std::cerr << "Failed to initiate GLFW\n";
+    if(!mWindow.create(1200, 720, "Omni Physics Lab")){
       return false;
     }
 
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    mRenderer.initialize();
 
-    mWindow = glfwCreateWindow(
-      1200,
-      720,
-      "Omni Physics Lab",
-      nullptr, nullptr
-    );
-
-    if(!mWindow){
-      glfwTerminate();
-      return false;
-    }
-
-    glfwMakeContextCurrent(mWindow);
-
-    if(!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)){
-      std::cerr << "Failed to initialize GLAD\n";
-      return false;
-    }
-
-    std::cout << "OpenGL version: " << glGetString(GL_VERSION) << std::endl;
-
-    glViewport(0, 0, 1200, 720);
+    mExperimentManager.initialize();
 
     return true;
   }
@@ -56,27 +32,23 @@ namespace omni{
       return;
     }
 
-    while(!glfwWindowShouldClose(mWindow)){
+    while(!mWindow.shouldClose()){
 
       //std::cout << "Runnin... " << std::endl;
 
+      mTime.update();
 
-      glClearColor(0.05f, 0.05f, 0.05f, 1.0f);
-      glClear(GL_COLOR_BUFFER_BIT);
+      mRenderer.beginFrame();
 
-      glfwSwapBuffers(mWindow);
-      glfwPollEvents();
+      mExperimentManager.update(mTime.getDeltaTime());
+
+      mExperimentManager.render(mRenderer);
+
+      mRenderer.endFrame();
+
+      mWindow.pollEvents();
     }
 
     //std::cout << "Window closed." << std::endl;
-  }
-
-  void PhysicsLab::shutdown(){
-    if(mWindow){
-      glfwDestroyWindow(mWindow);
-      mWindow = nullptr;
-    }
-
-    glfwTerminate();
   }
 }

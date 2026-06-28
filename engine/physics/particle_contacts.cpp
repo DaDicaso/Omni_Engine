@@ -1,7 +1,7 @@
-#include<engine/physics/pcontacts.h>
+#include<engine/physics/particle_contacts.h>
 #include<iostream>
 
-using namespace engine;
+using namespace omni;
 
 ParticleContactResolver::ParticleContactResolver(unsigned iterations)
     : maxIterations(iterations), iterationsUsed(0) {}

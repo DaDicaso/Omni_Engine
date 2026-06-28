@@ -6,12 +6,12 @@
 #include "engine/scenes/physics_lab_scene.h"
 #include "engine/physics/pcontacts.h"
 
-using namespace engine;
+using namespace omni;
 
 static const unsigned MAX_CONTACTS = 100;
 
-engine::ParticleContact contacts[MAX_CONTACTS];
-engine::ParticleContactResolver resolver(100);
+omni::ParticleContact contacts[MAX_CONTACTS];
+omni::ParticleContactResolver resolver(100);
 
 void processInput(GLFWwindow *window);
 Vector3 getMouseWorld(GLFWwindow* window);

@@ -1,6 +1,6 @@
-#include<engine/constraints/plinks.h>
+#include<engine/physics/particle_links.h>
 
-using namespace engine;
+using namespace omni;
 
 real ParticleLink::currentLength() const {
     Vector3 relativePos = particle[0]->getPosition() - particle[1]->getPosition();

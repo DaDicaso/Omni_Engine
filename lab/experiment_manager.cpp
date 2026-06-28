@@ -1,33 +1,49 @@
-#include "experiment_manager.h"
-#include "experiment.h"
+#include<iostream>
+#include "lab/experiment_manager.h"
+
+#include "lab/experiment.h"
+#include "lab/experiments/Gravity/gravity_experiment.h"
+
+#include "engine/renderer/renderer.h" 
 
 namespace omni
 {
+
+  ExperimentManager::ExperimentManager(){
+    setExperiment(std::make_unique<GravityExperiment>());
+  }
+  
   ExperimentManager::~ExperimentManager(){
     shutdown();
   }
 
-  void ExperimentManager::addExperiment(std::unique_ptr<Experiment> experiment){
-    if(!mCurrentExperiment)
-      mCurrentExperiment = experiment.get();
+  void ExperimentManager::setExperiment(std::unique_ptr<Experiment> experiment){
+    if(mCurrentExperiment){
+      mCurrentExperiment->shutdown();
+    }
 
-    mExperiments.emplace_back(std::move(experiment));
+    mCurrentExperiment = std::move(experiment);
+    if(mCurrentExperiment){
+      mCurrentExperiment->initialize();
+    }
   }
 
   void ExperimentManager::initialize(){
     if(mCurrentExperiment){
-      mCurrentExperiment->init();
+      mCurrentExperiment->initialize();
     }
   }
 
   void ExperimentManager::update(float dt){
     if(mCurrentExperiment)
       mCurrentExperiment->update(dt);
+
+   // std::cout << dt << '\n';
   }
 
-  void ExperimentManager::render(){
+  void ExperimentManager::render(Renderer& renderer){
     if(mCurrentExperiment)
-      mCurrentExperiment->render();
+      mCurrentExperiment->render(renderer);
   }
 
   void ExperimentManager::shutdown(){
@@ -35,8 +51,8 @@ namespace omni
       mCurrentExperiment->shutdown();
   }
 
-  Experiment* ExperimentManager::currentExperiment(){
-    return mCurrentExperiment;
+  Experiment* ExperimentManager::getcurrentExperiment() const{
+    return mCurrentExperiment.get();
   }
 
 }

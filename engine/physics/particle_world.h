@@ -1,8 +1,8 @@
 #include<engine/physics/particle.h>
-#include<engine/physics/pcontacts.h>
-#include<engine/physics/pfgen.h>
+#include<engine/physics/particle_contacts.h>
+#include<engine/physics/particle_force_registry.h>
 
-namespace engine{
+namespace omni{
   /**
    * Keeps track of a set of particles, and provides the means to upda te them all
    */
@@ -17,7 +17,7 @@ namespace engine{
 
     // Holds one particle in the linked list of particles.
     struct ParticleRegistration{
-      engine::Particle *particle;
+      omni::Particle *particle;
       ParticleRegistration *next;
     };
 

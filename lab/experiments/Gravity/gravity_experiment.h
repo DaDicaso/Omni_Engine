@@ -1,18 +1,23 @@
 #pragma once
 
 #include "lab/experiment.h"
+#include "engine/physics/particle.h"
 
 namespace omni{
 
-  class EmptyExperiment : public Experiment{
-    
+  class GravityExperiment : public Experiment{
     public:
 
-      EmptyExperiment();
-      ~EmptyExperiment() override;
+      GravityExperiment();
+      ~GravityExperiment();
+
       void initialize() override;
       void update(float dt) override;
       void render(Renderer& renderer) override;
       void shutdown() override;
+
+    private:
+    
+      Particle mParticle;
   };
 }

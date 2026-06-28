@@ -1,7 +1,7 @@
 #pragma once
 #include "engine/core/precision.h"
 
-namespace engine{
+namespace omni{
   class Vector3{
     public:
       real x;
@@ -82,6 +82,16 @@ namespace engine{
       
       Vector3 operator*(const real value) const{
         return Vector3(x*value, y*value, z*value);
+      }
+      Vector3 operator/=(const real value){
+        x /= value;
+        y /= value;
+        z /= value;
+        return *this;
+      }
+
+      Vector3 operator/(const real value) const{
+        return Vector3(x/value, y/value, z/value);
       }
 
 

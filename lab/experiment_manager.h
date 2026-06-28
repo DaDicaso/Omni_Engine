@@ -1,33 +1,30 @@
 #pragma once
 
 #include <memory>
-#include <vector>
 
 namespace omni{
   class Experiment;
+  class Renderer;
 
   class ExperimentManager{
     public:
-      ExperimentManager() = default;
-
+      ExperimentManager();
       ~ExperimentManager();
 
-      void addExperiment(std::unique_ptr<Experiment> experiment);
+      void setExperiment(std::unique_ptr<Experiment> experiment);
 
       void initialize();
 
       void update(float dt);
 
-      void render();
+      void render(Renderer& renderer);
 
       void shutdown();
 
-      Experiment* currentExperiment();
+      Experiment* getcurrentExperiment() const;
 
     private:
-      std::vector<std::unique_ptr<Experiment>> mExperiments;
-
-      Experiment* mCurrentExperiment = nullptr;
+      std::unique_ptr<Experiment> mCurrentExperiment;
   };
 
 }

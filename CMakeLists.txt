@@ -29,7 +29,10 @@ PUBLIC
 # ------------------------------------------------------------
 
 set(ENGINE_SOURCES
-
+    engine/core/window.cpp
+    engine/renderer/renderer.cpp
+    engine/core/time.cpp
+    engine/physics/particle.cpp
 )
 
 set(LAB_SOURCES
@@ -39,6 +42,8 @@ set(LAB_SOURCES
     lab/physics_lab.cpp
 
     lab/experiments/empty/empty_experiment.cpp
+
+    lab/experiments/Gravity/gravity_experiment.cpp
 
 )
 

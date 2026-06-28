@@ -1,5 +1,10 @@
 #pragma once
 
+#include "engine/core/window.h"
+#include "engine/renderer/renderer.h"
+#include "lab/experiment_manager.h"
+#include "engine/core/time.h"
+
 struct GLFWwindow;
 
 namespace omni{
@@ -12,10 +17,12 @@ namespace omni{
 
   private:  
     bool initialize();
-    void shutdown();
 
   private:
-    GLFWwindow* mWindow = nullptr;
+    Window mWindow;
+    Renderer mRenderer;
+    ExperimentManager mExperimentManager;
+    Time mTime;
     
   };
 }

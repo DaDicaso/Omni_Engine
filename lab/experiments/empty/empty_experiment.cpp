@@ -1,8 +1,17 @@
-#include "empty_experiment.h"
+#include "lab/experiments/empty/empty_experiment.h"
+#include "engine/renderer/renderer.h"
 
 namespace omni{
 
-  void EmptyExperiment::init(){
+  EmptyExperiment::EmptyExperiment(){
+
+  }
+
+  EmptyExperiment::~EmptyExperiment(){
+    
+  }
+
+  void EmptyExperiment::initialize(){
 
   }
 
@@ -10,20 +19,12 @@ namespace omni{
 
   }
 
-  void EmptyExperiment::render(){
+  void EmptyExperiment::render(Renderer& renderer){
     
-  }
-
-  void EmptyExperiment::reset(){
-
   }
 
   void EmptyExperiment::shutdown(){
 
-  }
-
-  const char* EmptyExperiment::getName() const{
-    return "Empty Experiment";
   }
 
 }

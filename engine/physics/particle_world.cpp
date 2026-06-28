@@ -1,6 +1,6 @@
-#include<engine/physics/pworld.h>
+#include<engine/physics/particle_world.h>
 
-using namespace engine;
+using namespace omni;
 
 void ParticleWorld::startFrame(){
   ParticleRegistration *reg = firstParticle;
